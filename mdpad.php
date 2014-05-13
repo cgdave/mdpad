@@ -72,7 +72,7 @@ if ($urlallowed && !isset($md)) {
 }
 
 // Case 4 : post
-if ($postallowed && !isset($md) && isset($_POST)) {
+if ($postallowed && !isset($md) && $_SERVER["REQUEST_METHOD"] == "POST") {
 	$md = file_get_contents('php://input');
 	$src = "post.md";
 }
