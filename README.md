@@ -15,4 +15,4 @@ Installation
 
 Copy the `mdpad.php` file to your target directory in your web server's document root.
 
-Start your favorite Web Browser and point to `http://yourserver.yourdomain/yourdirectory/mdpad.php`.
+Start your favorite Web Browser and point to `http://yourserver.yourdomain/yourdirectory/mdpad.php[?file=<file>[&edit]]`.
