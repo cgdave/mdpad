@@ -56,7 +56,7 @@ window.onload = function() {
 	var md = document.getElementById("md");
 	function convert() {
 		console.log("Convertion !");
-		document.getElementById("html").innerHTML = marked("![Simplicit&eacute;&reg;](http://www.simplicite.fr/logos/logo250.png)\n---\n\n" + md.value);
+		document.getElementById("html").innerHTML = marked("![](./logo.png)\n---\n\n" + md.value);
 	}
 	var t;
 	md.onkeyup = function(e) {
