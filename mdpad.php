@@ -1,5 +1,6 @@
 <?php
 $md = null;
+$src = null;
 
 $path = realpath($_SERVER["PATH_TRANSLATED"]);
 
@@ -7,10 +8,9 @@ $path = realpath($_SERVER["PATH_TRANSLATED"]);
 // Action mdp mdpad.php
 // AddHandler mdp .md
 if (substr($path, -3) == ".md") {
+	$src = basename($path);
 	$md = file_get_contents($path);
 }
-
-$src = null;
 
 // case 2 : explicit file
 if (!isset($md)) {
@@ -35,13 +35,18 @@ if (!isset($md)) {
 	}
 }
 
+// Case 4 : posted markdown body (API mode)
+if (!isset($md)) {
+	// TODO
+}
+
 // Edit mode ?
-$edit = !isset($src) || isset($_GET["edit"]);
+$edit = !isset($src) || isset($_GET["edit"]) || isset($_POST["edit"]);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo isset($file) ? $file : "MDPad"; ?></title>
+<title><?php echo isset($src) ? $src : "MDPad"; ?></title>
 <link rel="stylesheet" type="text/css" href="markdown.css"/>
 <link rel="stylesheet" type="text/css"href="highlight.css">
 <script type="text/javascript" src="marked.js"></script>
