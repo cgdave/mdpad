@@ -3,21 +3,28 @@ $md = null;
 
 $path = realpath($_SERVER["PATH_TRANSLATED"]);
 
-// Case 1 : path translated is markdown file, which means MDPad is used as a .md files handler, e.g.:
+// Case 1 : path translated is a markdown file, this means MDPad is used as a .md files handler, e.g.:
 // Action mdp mdpad.php
 // AddHandler mdp .md
-// TODO
+if (substr($path, -3) == ".md") {
+	$md = file_get_contents($path);
+}
+
+$src = null;
 
 // case 2 : explicit file
-if (!isset($src)) {
+if (!isset($md)) {
 	$src = $_GET["file"];
+	// Avoid hacking (".." is not allowed if file names)
+	if (preg_match("/\.\.\//", $src))
+		$src= null;
 	if (isset($src)) {
 		$md = file_get_contents($path."/".$src);
 	}
 }
 
 // Case 3 : explicit URL
-if (!isset($src)) {
+if (!isset($md)) {
 	$src = $_GET["url"];
 	if (isset($src)) {
 		$c = curl_init(); 
