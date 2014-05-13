@@ -4,7 +4,7 @@
 Introduction
 ------------
 
-MDPad is a lightweight markdown editor / viewer based on [Marked](https://github.com/chjj/marked) and [Highlight.js](https://github.com/isagalaev/highlight.js).
+MDPad is a simple web based markdown editor / viewer based on [Marked](https://github.com/chjj/marked) and [Highlight.js](https://github.com/isagalaev/highlight.js).
 
 ![MDPad](https://raw.githubusercontent.com/cgdave/mdpad/master/snapshot.jpg)
 
