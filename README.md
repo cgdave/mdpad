@@ -13,6 +13,6 @@ Up-to-date version is available at [GitHub](https://github.com/cgdave/mdpad).
 Installation
 ------------
 
-Copy the `mdpad.php` file to your target directory in your web server's document root.
+Copy the `mdpad.php`, `*.js` and `*.css` files to your target directory in your web server's document root.
 
 Start your favorite Web Browser and point to `http://yourserver.yourdomain/yourdirectory/mdpad.php[?file=<file>[&edit]]`.
