@@ -18,7 +18,7 @@ Copy the `mdpad.php`, `*.js` and `*.css` files to your target directory in your 
 Usage
 -----
 
-Start your favorite Web Browser and point to `http://yourserver.yourdomain/yourdirectory/mdpad.php`.
+Start your favorite web browser and point to `http://yourserver.yourdomain/yourdirectory/mdpad.php`.
 
 You can specify the location of the markdown file to view/edit:
 
