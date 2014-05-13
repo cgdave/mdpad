@@ -1,11 +1,35 @@
 <?php
-$file = $_GET["file"];
 $md = null;
-if (isset($file)) {
-	$p = realpath($_SERVER["PATH_TRANSLATED"])."/".$file;
-	$md = file_get_contents($p);
+
+$path = realpath($_SERVER["PATH_TRANSLATED"]);
+
+// Case 1 : path translated is markdown file, which means MDPad is used as a .md files handler, e.g.:
+// Action mdp mdpad.php
+// AddHandler mdp .md
+// TODO
+
+// case 2 : explicit file
+if (!isset($src)) {
+	$src = $_GET["file"];
+	if (isset($src)) {
+		$md = file_get_contents($path."/".$src);
+	}
 }
-$edit = !isset($file) || isset($_GET["edit"]);
+
+// Case 3 : explicit URL
+if (!isset($src)) {
+	$src = $_GET["url"];
+	if (isset($src)) {
+		$c = curl_init(); 
+		curl_setopt($c, CURLOPT_URL, $src); 
+		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1); 
+		$md = curl_exec($c); 
+		curl_close($c);
+	}
+}
+
+// Edit mode ?
+$edit = !isset($src) || isset($_GET["edit"]);
 ?>
 <!DOCTYPE html>
 <html>
