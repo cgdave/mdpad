@@ -72,8 +72,9 @@ if ($urlallowed && !isset($md)) {
 }
 
 // Case 4 : post
-if ($postallowed && !isset($md)) {
-	// TODO
+if ($postallowed && !isset($md) && isset($_POST)) {
+	$md = file_get_contents('php://input');
+	$src = "post.md";
 }
 
 // Edit mode ?
