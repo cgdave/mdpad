@@ -1,0 +1,10 @@
+.markdown { color: #404040; font-family: Helvetica,Arial,sans-serif; font-size: 1em; line-height: 1.4; border: 1px solid #C0C0C0; margin:10px; padding: 10px; }
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5 { border-bottom: solid 1px #CACACA; margin: 0px 0px 15px 0px; }
+.markdown h1 { font-size: 2.75em; }
+.markdown h2 { font-size: 1.75em; }
+.markdown h3 { font-size: 1.5em; }
+.markdown h4 { font-size: 1.25em; }
+.markdown h5 { font-size: 1em; }
+.markdown pre, .markdown code { border: solid 1px #C0C0C0; background-color: #F0F0F0; padding: 0px 3px; margin: 0px 2px; }
+.markdown pre { margin: 10px 0px; }
+.markdown pre code { border: none 0px; background-color: inherit; padding: 0px; }
