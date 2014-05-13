@@ -1,19 +1,59 @@
 <?php
+//======================================================================
+//
+// Name: MDPad
+// Description: A simple Markdown editor/viewer
+// Version: 1.0
+// Credits: Marked (https://github.com/chjj/marked)
+//          Highlight.js (https://github.com/isagalaev/highlight.js
+// 
+// License: This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+//======================================================================
+
+// ---------------- Things that can be customized... -------------------
+
+$defaulttitle = "MDPad";		// Default title (when no file or URL)
+$defaultmd = true;				// Use default sample markdown (when no file or URL or post)
+
+$handlerallowed = true;			// Is usage as handler allowed ?
+$fileallowed = true;			// Is explicit file=<a relative MD file path> scheme allowed ?
+$urlallowed = true;				// Is explicit url=<a MD file URL> scheme allowed ?
+$postallowed = true;			// Are MD in post requests allowed ?
+
+$editallowed = true;			// Is local edition allowed ?
+
+$absolutepathtojsandcss = "";	// Absolute path to JS and CSS *with* last "/"
+								// Needed only if used as a .md file handler
+
+
+$mdheader = "";					// Additionnal markdown added as header
+$mdfooter = "";					// Additionnal markdown added as footer
+
+// ---------------------------------------------------------------------
+
 $md = null;
 $src = null;
 
 $path = realpath($_SERVER["PATH_TRANSLATED"]);
 
-// Case 1 : path translated is a markdown file, this means MDPad is used as a .md files handler, e.g.:
-// Action mdp mdpad.php
-// AddHandler mdp .md
-if (substr($path, -3) == ".md") {
+// Case 1 : Used as a .md files handler
+// For Apache web server put a .htaccess with:
+//  Action mdp mdpad.php
+//  AddHandler mdp .md
+if ($handlerallowed && substr($path, -3) == ".md") {
 	$src = basename($path);
 	$md = file_get_contents($path);
 }
 
-// case 2 : explicit file
-if (!isset($md)) {
+// Case 2 : relative file scheme
+if ($fileallowed && !isset($md)) {
 	$src = $_GET["file"];
 	// Avoid hacking (".." is not allowed if file names)
 	if (preg_match("/\.\.\//", $src))
@@ -23,8 +63,8 @@ if (!isset($md)) {
 	}
 }
 
-// Case 3 : explicit URL
-if (!isset($md)) {
+// Case 3 : URL scheme
+if ($urlallowed && !isset($md)) {
 	$src = $_GET["url"];
 	if (isset($src)) {
 		$c = curl_init(); 
@@ -35,29 +75,29 @@ if (!isset($md)) {
 	}
 }
 
-// Case 4 : posted markdown body (API mode)
-if (!isset($md)) {
+// Case 4 : post
+if ($postallowed && !isset($md)) {
 	// TODO
 }
 
 // Edit mode ?
-$edit = !isset($src) || isset($_GET["edit"]) || isset($_POST["edit"]);
+$edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["edit"]));
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo isset($src) ? $src : "MDPad"; ?></title>
-<link rel="stylesheet" type="text/css" href="markdown.css"/>
+<title><?php echo isset($src) ? $src : "<?php echo $defaulttitle; ?>"; ?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>markdown.css"/>
 <link rel="stylesheet" type="text/css"href="highlight.css">
-<script type="text/javascript" src="marked.js"></script>
-<script type="text/javascript" src="highlight.js"></script>
+<script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
+<script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>highlight.js"></script>
 </head>
 <body style="margin: 0; padding: 0; overflow: hidden;">
 <textarea id="md" rows="15" style="<?php echo $edit ? "margin: 0; border: none 0; padding: 5px; overflow: auto; outline: none; position: absolute; top: 0; bottom: 0; left: 0; width: 50%; height: 100%;" : "display: none;"; ?>">
 <?php
 if (isset($md)) {
 	echo $md;
-} else {
+} else if ($defaultmd) {
 ?>
 ![Hello world](https://raw.githubusercontent.com/cgdave/mdpad/master/logo.png)
 ---
@@ -110,7 +150,7 @@ window.onload = function() {
 	var md = document.getElementById("md");
 	function convert() {
 		console.log("Convertion !");
-		document.getElementById("html").innerHTML = marked(md.value);
+		document.getElementById("html").innerHTML = marked("<? echo $mdheader."\\n\\n"; ?>" + md.value + "<? echo "\\n\\n".$mdfooter; ?>");
 	}
 	var t;
 	md.onkeyup = function(e) {
