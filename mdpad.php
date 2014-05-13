@@ -32,10 +32,6 @@ $editallowed = true;			// Is local edition allowed ?
 $absolutepathtojsandcss = "";	// Absolute path to JS and CSS *with* last "/"
 								// Needed only if used as a .md file handler
 
-
-$mdheader = "";					// Additionnal markdown added as header
-$mdfooter = "";					// Additionnal markdown added as footer
-
 // ---------------------------------------------------------------------
 
 $md = null;
@@ -88,7 +84,7 @@ $edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["e
 <head>
 <title><?php echo isset($src) ? $src : "<?php echo $defaulttitle; ?>"; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>markdown.css"/>
-<link rel="stylesheet" type="text/css"href="highlight.css">
+<link rel="stylesheet" type="text/css"href="<?php echo $absolutepathtojsandcss; ?>highlight.css">
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>highlight.js"></script>
 </head>
@@ -150,7 +146,7 @@ window.onload = function() {
 	var md = document.getElementById("md");
 	function convert() {
 		console.log("Convertion !");
-		document.getElementById("html").innerHTML = marked("<? echo $mdheader."\\n\\n"; ?>" + md.value + "<? echo "\\n\\n".$mdfooter; ?>");
+		document.getElementById("html").innerHTML = marked(md.value);
 	}
 	var t;
 	md.onkeyup = function(e) {
