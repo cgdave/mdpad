@@ -83,7 +83,7 @@ $edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["e
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo isset($src) ? $src : "<?php echo $defaulttitle; ?>"; ?></title>
+<title><?php echo isset($src) ? $src : $defaulttitle; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>markdown.css"/>
 <link rel="stylesheet" type="text/css"href="<?php echo $absolutepathtojsandcss; ?>highlight.css">
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
