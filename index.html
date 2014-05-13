@@ -29,9 +29,13 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h2>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a><img src="https://raw.githubusercontent.com/cgdave/mdpad/master/logo.png" alt="MDPad">
+</h2>
+
+<h2>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>MDPad is a simple web based markdown editor / viewer based on <a href="https://github.com/chjj/marked">Marked</a> and <a href="https://github.com/isagalaev/highlight.js">Highlight.js</a>.</p>
+<p>MDPad is a simple web based markdown viewer and local editor based on <a href="https://github.com/chjj/marked">Marked</a> and <a href="https://github.com/isagalaev/highlight.js">Highlight.js</a>.</p>
 
 <p><img src="https://raw.githubusercontent.com/cgdave/mdpad/master/snapshot.jpg" alt="MDPad"></p>
 
@@ -42,7 +46,27 @@
 
 <p>Copy the <code>mdpad.php</code>, <code>*.js</code> and <code>*.css</code> files to your target directory in your web server's document root.</p>
 
-<p>Start your favorite Web Browser and point to <code>http://yourserver.yourdomain/yourdirectory/mdpad.php[?file=&lt;file&gt;[&amp;edit]]</code>.</p>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Start your favorite Web Browser and point to <code>http://yourserver.yourdomain/yourdirectory/mdpad.php</code>.</p>
+
+<p>You can specify the location of the markdown file to view/edit:</p>
+
+<ul>
+<li>A relative file using the <code>file</code> parameter (e.g. <code>http://yourserver.yourdomain/yourdirectory/mdpad.php?file=relative/path/to/README.md). Note that relative paths with</code>..` in it are ignored.</li>
+<li>A URL using the <code>url</code> parameter (e.g. <code>http://yourserver.yourdomain/yourdirectory/mdpad.php?url=http%3A%2F%2Fsomewher.com%2Fpath%2Fto%2FREADME.md</code>). Note that URL must be URL-encoded.</li>
+</ul><p>To get the local edit panel you simply need to append <code>&amp;edit</code> to the URL. Any change made in the edit panel is automatically reflected on the view panel <strong>but</strong> nothing is saved.</p>
+
+<h2>
+<a name="advanced-usage" class="anchor" href="#advanced-usage"><span class="octicon octicon-link"></span></a>Advanced usage</h2>
+
+<p>You can use MDPad as a <strong>handler</strong> for <code>.md</code> files. For instance, with Apache the configuration (e.g. in a local <code>.htaccess</code> file) would be like:</p>
+
+<pre lang="plain"><code>Action mdp /path/to/mdpad.php
+AddHandler mdp .md
+
+</code></pre>
         </section>
 
         <aside id="sidebar">
@@ -62,6 +86,16 @@
       </div>
     </div>
 
-  
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-50877824-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
