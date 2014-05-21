@@ -10,3 +10,4 @@ body.markdown .markdown { overflow: auto; position: absolute; top: 0; bottom: 0;
 .markdown pre, .markdown code { border: solid 1px #C0C0C0; background-color: #F7F7F7; padding: 0px 3px; margin: 0px 2px; }
 .markdown pre { border-radius: 3px; margin: 10px 0px; }
 .markdown pre code { border: none 0px; background-color: inherit; padding: 0px; }
+.markdown blockquote { border-left: solid 3px #C0C0C0; padding-left: 10px; color: #A0A0A0; }
