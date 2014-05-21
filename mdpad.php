@@ -89,8 +89,8 @@ $edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["e
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>highlight.js"></script>
 </head>
-<body style="margin: 0; padding: 0; overflow: hidden;">
-<textarea id="md" rows="15" style="<?php echo $edit ? "margin: 0; border: none 0; padding: 5px; overflow: auto; outline: none; position: absolute; top: 0; bottom: 0; left: 0; width: 50%; height: 100%;" : "display: none;"; ?>">
+<body class="markdown">
+<textarea id="md" rows="15" style="<?php echo $edit ? "margin: 0; border: none 0; padding: 0; overflow: auto; outline: none; position: absolute; top: 0; bottom: 0; left: 0; width: 50%; height: 100%;" : "display: none;"; ?>">
 <?php
 if (isset($md)) {
 	echo $md;
@@ -113,7 +113,7 @@ Hello world
 
 Hello **world**, hello _world_
 
-- Hello
+
 	- Hello
 	- World
 - World 
@@ -134,7 +134,7 @@ public hello(world) {
 }
 ?>
 </textarea>
-<div id="html" class="markdown" style="overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: <?php echo $edit ? "50%" : "0"; ?>;"></div>
+<div id="html" class="markdown"<?php echo $edit ? " style=\"left: 50%;\"" : ""; ?>></div>
 <script type="text/javascript">
 window.onload = function() {
 	hljs.initHighlightingOnLoad();
