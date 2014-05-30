@@ -127,8 +127,28 @@ Hello `world`, hello [world](http://www.github.com)
 
 ```java
 public hello(world) {
-	// Hello World
+	String s = "hello world";
 }
+```
+
+```javascript
+function hello(world) {
+	var s = "hello world";
+}
+```
+
+```css
+p.hello { width: 5px; }
+h1.world { height: 100%; } 
+```
+
+```html
+<p>hello
+<span>world</span></p>
+```
+
+```sql
+select 1 from hello.world;
 ```
 <?php
 }
