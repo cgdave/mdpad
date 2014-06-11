@@ -125,6 +125,11 @@ Hello `world`, hello [world](http://www.github.com)
 
 &gt; Hello world
 
+| Hello | Hello     | Hello |
+| ----- |:---------:| -----:|
+| world | _world_   | $1000 |
+| world | **world** |  $500 |
+
 ```java
 public hello(world) {
 	String s = "hello world";
