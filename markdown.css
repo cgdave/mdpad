@@ -1,16 +1,20 @@
-body.markdown { margin: 0; padding: 0; overflow: hidden; }
-body.markdown .markdown { overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0; border: 1px solid #C0C0C0; margin:10px; padding: 10px; }
-.markdown { color: #404040; font-family: Helvetica,Arial,sans-serif; font-size: 1em; line-height: 1.7; }
-.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5 { border-bottom: solid 1px #C0C0C0; margin: 0px 0px 15px 0px; }
-.markdown h1 { font-size: 2.75em; }
-.markdown h2 { font-size: 1.75em; }
-.markdown h3 { font-size: 1.5em; }
-.markdown h4 { font-size: 1.25em; }
-.markdown h5 { font-size: 1em; }
-.markdown pre, .markdown code { border: solid 1px #C0C0C0; background-color: #F7F7F7; padding: 0px 3px; margin: 0px 2px; }
+body.markdown { margin: 0; padding: 0; }
+@media screen {
+	body.markdown { overflow: hidden; }
+	body.markdown .markdown { overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin:10px; padding: 10px;  border: solid 2px #E0E0E0; }
+}
+.markdown { color: #404040; font-family: Helvetica,Arial,sans-serif; font-size: 14px; line-height: 1.7; }
+.markdown a, .markdown a:hover, .markdown a:active, .markdown a:visited { color: inherit; text-decoration: none; }
+.markdown a, .markdown a:visited { border-bottom: dotted 1px #808080; }
+.markdown a:hover, .markdown a:active { border-bottom: solid 1px #808080; }
+.markdown hr { border: solid 1px #E0E0E0; }
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5 { font-weight: normal; border-bottom: solid 1px #E0E0E0; margin: 0px 0px 15px 0px; }
+.markdown h1 { font-size: 36px; color: #31b0d5; }
+.markdown h2 { font-size: 30px; color: #449d44; }
+.markdown h3 { font-size: 24px; color: #ec971f; }
+.markdown h4 { font-size: 18px; color: #808080; }
+.markdown h5 { font-size: 14px; color: #A0A0A0; }
+.markdown pre, .markdown code { border: solid 1px #E0E0E0; border-radius: 4px; background-color: #F7F7F7; padding: 0px 3px; margin: 0px 2px; }
 .markdown pre { border-radius: 3px; margin: 10px 0px; }
 .markdown pre code { border: none 0px; background-color: inherit; padding: 0px; }
-.markdown blockquote { border-left: solid 3px #C0C0C0; padding-left: 10px; color: #A0A0A0; }
-.markdown table { border-collapse: collapse; }
-.markdown th, .markdown td { border: solid 1px #C0C0C0; padding: 5px 10px; }
-.markdown th { background-color: #F0F0F0; }
+.markdown blockquote { border-left: solid 2px #E0E0E0; padding-left: 10px; color: #A0A0A0; }
