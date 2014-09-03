@@ -83,9 +83,14 @@ $edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["e
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?php echo isset($src) ? $src : $defaulttitle; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>markdown.css"/>
 <link rel="stylesheet" type="text/css"href="<?php echo $absolutepathtojsandcss; ?>highlight.css">
+<?php if ($edit) { ?><style type="text/css" media="screen">
+body.markdown { overflow: hidden; }
+body.markdown .markdown { overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0; }
+</style><?php } ?>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>highlight.js"></script>
 </head>
@@ -113,7 +118,7 @@ Hello world
 
 Hello **world**, hello _world_
 
-
+- Hello
 	- Hello
 	- World
 - World 
@@ -148,8 +153,7 @@ h1.world { height: 100%; }
 ```
 
 ```html
-<p>hello
-<span>world</span></p>
+<p>hello <span>world</span></p>
 ```
 
 ```sql
