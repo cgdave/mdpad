@@ -19,18 +19,19 @@
 
 // ---------------- Things that can be customized... -------------------
 
-$defaulttitle = "MDPad";		// Default title (when no file or URL)
-$defaultmd = true;				// Use default sample markdown (when no file or URL or post)
+$defaulttitle = "MDPad"; // Default title (when no file or URL)
+$defaultmd = true; // Use default sample markdown (when no file or URL or post)
 
-$handlerallowed = true;			// Is usage as handler allowed ?
-$fileallowed = true;			// Is explicit file=<a relative MD file path> scheme allowed ?
-$urlallowed = true;				// Is explicit url=<a MD file URL> scheme allowed ?
-$postallowed = true;			// Are MD in post requests allowed ?
+$handlerallowed = true; // Is usage as handler allowed ?
+$fileallowed = true; // Is explicit file=<a relative MD file path> scheme allowed ?
+$urlallowed = true; // Is explicit url=<a MD file URL> scheme allowed ?
+$postallowed = true; // Are MD in post requests allowed ?
 
-$editallowed = true;			// Is local edition allowed ?
+$editallowed = true; // Is local edition allowed ?
 
-$absolutepathtojsandcss = "";	// Absolute path to JS and CSS *with* last "/"
-								// Needed only if used as a .md file handler
+$absolutepathtojsandcss = ""; // Absolute path to JS and CSS *with* last "/", needed only if used as a .md file handler
+
+$cachemaxage = 600; // Cache max age (0 = no cache)
 
 // ---------------------------------------------------------------------
 
@@ -79,6 +80,14 @@ if ($postallowed && !isset($md) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Edit mode ?
 $edit = $editallowed && (!isset($src) || isset($_GET["edit"]) || isset($_POST["edit"]));
+
+if ($cachemaxage <= 0) {
+	header("Expires: -1");
+	header("Cache-Control: max-age=0, no-cache");
+} else {
+	header("Expires: ".gmdate("D, d M Y H:i:s", time() + $cachemaxage)." GMT");
+	header("Cache-Control: max-age=".$cachemaxage.", must-revalidate");
+}
 ?>
 <!DOCTYPE html>
 <html>
