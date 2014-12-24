@@ -31,7 +31,11 @@ $editallowed = true; // Is local edition allowed ?
 
 $absolutepathtojsandcss = ""; // Absolute path to JS and CSS *with* last "/", needed only if used as a .md file handler
 
+$defaultcssclass = "markdown"; // Default CSS class name
+
 $cachemaxage = 600; // Cache max age (0 = no cache)
+
+$accesscontrolalloworigin = ""; // Allow AJAX requests from other sites, e.g. "*" for any site or explicit site name e.g. "www.mysite.com"
 
 // ---------------------------------------------------------------------
 
@@ -51,9 +55,9 @@ if ($handlerallowed && substr($path, -3) == ".md") {
 
 // Case 2 : relative file scheme
 if ($fileallowed && !isset($md)) {
-	$src = $_GET["file"];
+	$src = @$_GET["file"];
 	// Avoid hacking (".." is not allowed if file names)
-	if (preg_match("/\.\.\//", $src))
+	if (isset($src) && preg_match("/\.\.\//", $src))
 		$src= null;
 	if (isset($src)) {
 		$md = file_get_contents($path."/".$src);
@@ -62,7 +66,7 @@ if ($fileallowed && !isset($md)) {
 
 // Case 3 : URL scheme
 if ($urlallowed && !isset($md)) {
-	$src = $_GET["url"];
+	$src = @$_GET["url"];
 	if (isset($src)) {
 		$c = curl_init(); 
 		curl_setopt($c, CURLOPT_URL, $src); 
@@ -74,7 +78,7 @@ if ($urlallowed && !isset($md)) {
 
 // Case 4 : post
 if ($postallowed && !isset($md) && $_SERVER["REQUEST_METHOD"] == "POST") {
-	$md = file_get_contents('php://input');
+	$md = file_get_contents("php://input");
 	$src = "post.md";
 }
 
@@ -88,22 +92,29 @@ if ($cachemaxage <= 0) {
 	header("Expires: ".gmdate("D, d M Y H:i:s", time() + $cachemaxage)." GMT");
 	header("Cache-Control: max-age=".$cachemaxage.", must-revalidate");
 }
+
+if (!empty($accesscontrolalloworigin)) {
+	header("Access-Control-Allow-Origin: ".$accesscontrolalloworigin);
+}
+
+$cls = @$_GET["class"];
+if (!isset($cls)) $cls = $defaultcssclass;
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?php echo isset($src) ? $src : $defaulttitle; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>markdown.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>styles.css"/>
 <link rel="stylesheet" type="text/css"href="<?php echo $absolutepathtojsandcss; ?>highlight.css">
 <?php if ($edit) { ?><style type="text/css" media="screen">
-body.markdown { overflow: hidden; }
-body.markdown .markdown { overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0; }
+body.<?php echo $cls; ?> { overflow: hidden; }
+body.<?php echo $cls; ?> .<?php echo $cls; ?> { overflow: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0; }
 </style><?php } ?>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>marked.js"></script>
 <script type="text/javascript" src="<?php echo $absolutepathtojsandcss; ?>highlight.js"></script>
 </head>
-<body class="markdown">
+<body class="<?php echo $cls; ?>">
 <textarea id="md" rows="15" style="<?php echo $edit ? "margin: 0; border: none 0; padding: 5px; overflow: auto; outline: none; position: absolute; top: 0; bottom: 0; left: 0; width: 740px; height: 100%;" : "display: none;"; ?>">
 <?php
 if (isset($md)) {
@@ -172,7 +183,7 @@ select 1 from hello.world;
 }
 ?>
 </textarea>
-<div id="html" class="markdown"<?php echo $edit ? " style=\"left: 750px;\"" : ""; ?>></div>
+<div id="html" class="<?php echo $cls; ?>"<?php echo $edit ? " style=\"left: 750px;\"" : ""; ?>></div>
 <script type="text/javascript">
 window.onload = function() {
 	hljs.initHighlightingOnLoad();
@@ -184,7 +195,6 @@ window.onload = function() {
 	});
 	var md = document.getElementById("md");
 	function convert() {
-		console.log("Convertion !");
 		document.getElementById("html").innerHTML = marked(md.value);
 	}
 	var t;
@@ -192,11 +202,11 @@ window.onload = function() {
 		t = setTimeout(convert, 500);
 	};
 	md.onkeydown = function(e) {
-		if (e.keyCode==9 || event.which==9){
+		if (e.keyCode == 9 || event.which == 9) {
 			e.preventDefault();
 			var s = this.selectionStart;
 			this.value = this.value.substring(0, this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
-			this.selectionEnd = s+1; 
+			this.selectionEnd = s + 1; 
 		}
 		if (t) clearTimeout(t);
 	};
