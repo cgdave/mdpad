@@ -27,15 +27,29 @@ You can specify the location of the markdown file to view/edit:
 
 To get the local edit panel you simply need to append `&edit` to the URL. Any change made in the edit panel is automatically reflected on the view panel **but** nothing is saved.
 
+To use an alternative CSS styles set you simply need to append `&class=<my class name>` to the URL (default value for this parameter is `markdown` that matches the default classes names in the `styles.css`file).
+
 Advanced usage
 --------------
 
-You can use MDPad as a **handler** for `.md` files. For instance, with Apache the configuration (e.g. in a local `.htaccess` file) would be like:
+You can use MDPad as a **handler** for `.md` files with various web servers:
+
+### Apache
+
+You need to have PHP enabled on Apache, then the configuration of the handler is something like:
 
 ```plain
 Action mdp /path/to/mdpad.php
 AddHandler mdp .md
+```
 
+This can be put globally or in a `<Location>` block of the main configuration files or in a local `.htaccess` file.
+
+### NGINX
+
+You need to have FastCGI PHP server installed and properly configured, then the configuration is something likes:
+
+```
 ```
 
 License
