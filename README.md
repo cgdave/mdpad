@@ -1,4 +1,4 @@
-![MDPad](https://raw.githubusercontent.com/cgdave/mdpad/master/logo.png)
+![MDPad](https://raw.githubusercontent.com/cgdave/mdpad/master/mdpad.png)
 ---
 
 Introduction

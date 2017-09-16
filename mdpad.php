@@ -121,7 +121,7 @@ if (isset($md)) {
 	echo $md;
 } else if ($defaultmd) {
 ?>
-![Hello world](https://raw.githubusercontent.com/cgdave/mdpad/master/logo.png)
+![Hello world](https://raw.githubusercontent.com/cgdave/mdpad/master/mdpad.png)
 ---
 
 Hello world
