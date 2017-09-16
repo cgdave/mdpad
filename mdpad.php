@@ -105,7 +105,7 @@ if (!isset($cls)) $cls = $defaultcssclass;
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?php echo isset($src) ? $src : $defaulttitle; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>styles.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $absolutepathtojsandcss; ?>mdpad.css"/>
 <link rel="stylesheet" type="text/css"href="<?php echo $absolutepathtojsandcss; ?>highlight.css">
 <?php if ($edit) { ?><style type="text/css" media="screen">
 body.<?php echo $cls; ?> { overflow: hidden; }
